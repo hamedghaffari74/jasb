@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="car" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6de6ff"/>
+      <stop offset="1" stop-color="#1371c2"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="32" cy="55" rx="24" ry="4" fill="#050a12" opacity=".4"/>
+  <path d="M6 43 Q9 30 20 27 L40 27 Q54 29 58 43 L56 48 L8 48 Z" fill="url(#car)" stroke="#0a1220" stroke-width="3"/>
+  <path d="M17 29 L24 20 L38 20 L46 29 Z" fill="#bff4ff" stroke="#0a1220" stroke-width="2"/>
+  <path d="M23 21 L25 28 M33 21 L31 28" stroke="#0a1220" stroke-width="2"/>
+  <circle cx="17" cy="48" r="7" fill="#0a1220" stroke="#9db6cc" stroke-width="3"/>
+  <circle cx="47" cy="48" r="7" fill="#0a1220" stroke="#9db6cc" stroke-width="3"/>
+  <circle cx="17" cy="48" r="2.5" fill="#20dfff"/><circle cx="47" cy="48" r="2.5" fill="#20dfff"/>
+  <rect x="43" y="34" width="8" height="4" rx="2" fill="#fff3c4"/>
+</svg>

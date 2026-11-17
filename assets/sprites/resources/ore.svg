@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7d8fa8"/>
+      <stop offset="1" stop-color="#34445c"/>
+    </linearGradient>
+    <linearGradient id="ore" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#ff9f1c"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="32" cy="56" rx="23" ry="4" fill="#050a12" opacity=".4"/>
+  <path d="M7 52 L16 22 L27 31 L36 15 L48 30 L57 52 Z" fill="url(#rock)" stroke="#0a1220" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M16 22 L23 36 L28 26 L36 15 L41 31 L49 28" fill="none" stroke="#a8b8cc" stroke-width="2" opacity=".65"/>
+  <path d="M21 44 l8 -7 l6 5 l-6 7 Z" fill="url(#ore)" stroke="#0a1220" stroke-width="2"/>
+  <path d="M37 40 l6 -5 l5 6 l-6 5 Z" fill="url(#ore)" stroke="#0a1220" stroke-width="2"/>
+</svg>

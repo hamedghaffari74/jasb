@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StationData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/factory/station_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "car_plant"
+display_name = "Car Plant"
+input_item = "steel"
+input_amount = 4
+output_item = "cars"
+base_cycle = 4.0
+buy_cost = 1250
+trait_cost = 375
+is_market = false
+color = Color(0.9, 0.35, 0.4, 1)

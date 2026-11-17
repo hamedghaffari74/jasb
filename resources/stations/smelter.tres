@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StationData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/factory/station_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = "smelter"
+display_name = "Smelter"
+input_item = "ore"
+input_amount = 2
+output_item = "iron"
+base_cycle = 1.5
+buy_cost = 150
+trait_cost = 45
+is_market = false
+color = Color(1, 0.55, 0.2, 1)

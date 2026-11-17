@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#63758f"/>
+      <stop offset="1" stop-color="#2b3a52"/>
+    </linearGradient>
+    <linearGradient id="rockLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8194ad"/>
+      <stop offset="1" stop-color="#4b5d78"/>
+    </linearGradient>
+    <linearGradient id="ore" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#ff9f1c"/>
+    </linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a97142"/>
+      <stop offset="1" stop-color="#5f3f24"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffaa24" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#ffaa24" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="64" cy="113" rx="49" ry="9" fill="#050a12" opacity=".45"/>
+  <circle cx="64" cy="52" r="42" fill="url(#glow)"/>
+  <path d="M10 108 L37 52 L51 65 L66 35 L92 68 L118 108 Z" fill="url(#rock)" stroke="#0a1220" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M37 52 L47 72 L57 58 L66 35 L77 57 L88 48 L99 78 L84 88 L62 83 Z" fill="url(#rockLight)" opacity=".65"/>
+  <path d="M50 108 Q64 73 78 108 Z" fill="#0a1220"/>
+  <path d="M56 108 L56 94 L72 94 L72 108" fill="none" stroke="url(#wood)" stroke-width="6"/>
+  <rect x="50" y="60" width="28" height="7" rx="2" fill="url(#wood)" stroke="#0a1220" stroke-width="2"/>
+  <path d="M85 84 l10 -11 l7 5 l-7 10 Z" fill="url(#ore)" stroke="#0a1220" stroke-width="3"/>
+  <path d="M96 93 l7 -8 l6 6 l-6 7 Z" fill="url(#ore)" stroke="#0a1220" stroke-width="3"/>
+  <path d="M25 92 l8 -16 l6 4 l-7 15 Z" fill="url(#ore)" stroke="#0a1220" stroke-width="3"/>
+  <path d="M8 112 L120 112" stroke="#39465c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M40 108 L40 101 M72 108 L72 101 M96 108 L96 101" stroke="#7a8aa3" stroke-width="3"/>
+  <g transform="translate(58 90)">
+    <path d="M0 10 L4 3 L20 3 L24 10 Z" fill="#3c4c66" stroke="#0a1220" stroke-width="3"/>
+    <path d="M5 3 L5 0 L19 0 L19 3" fill="url(#ore)" stroke="#0a1220" stroke-width="2"/>
+    <circle cx="6" cy="13" r="4" fill="#141d2c" stroke="#7a8aa3" stroke-width="2"/>
+    <circle cx="18" cy="13" r="4" fill="#141d2c" stroke="#7a8aa3" stroke-width="2"/>
+  </g>
+  <path d="M22 28 L30 18 L38 24" fill="none" stroke="#ffd166" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="22" cy="28" r="3" fill="#ffaa24"/>
+</svg>
