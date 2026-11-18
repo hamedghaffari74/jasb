@@ -447,5 +447,5 @@ func _notification(what: int) -> void:
 
 
 func _on_resized() -> void:
-	_base_pos = ((size - DESIGN_SIZE) * 0.5).floor()
+	_base_pos = Vector2(floor((size.x - DESIGN_SIZE.x) * 0.5), 0.0)
 	_area.position = _base_pos
