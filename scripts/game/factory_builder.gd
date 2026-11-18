@@ -6,13 +6,13 @@ const STATION_SCENE: PackedScene = preload("res://scenes/game/station.tscn")
 const STATION_PATH: String = "res://resources/stations/%s.tres"
 
 const LAYOUT: Dictionary = {
-	"mine": Vector2(170, 215),
-	"smelter": Vector2(170, 445),
-	"mill": Vector2(170, 675),
-	"tool_shop": Vector2(170, 905),
-	"market": Vector2(550, 215),
-	"car_plant": Vector2(550, 445),
-	"appliance_plant": Vector2(550, 675),
+	"mine": Vector2(170, 250),
+	"smelter": Vector2(170, 630),
+	"mill": Vector2(170, 1010),
+	"market": Vector2(550, 230),
+	"car_plant": Vector2(550, 500),
+	"appliance_plant": Vector2(550, 770),
+	"tool_shop": Vector2(550, 1040),
 }
 
 const SIZES: Dictionary = {

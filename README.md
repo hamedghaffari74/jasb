@@ -25,7 +25,8 @@ Build a steel production chain, connect factories with glowing lines, sell produ
 - **Global Lab** with three permanent tracks bought with **blue stars**: sale price, speed and storage
 - **Ascension** at 100 built cars: reset the run, keep blue stars and global upgrades, earn 50 stars
 - Persian (default) and English UI with Vazirmatn and RTL support
-- Industrial night-city background, custom SVG art, animated cards, links, market and economy dashboard
+- Industrial night-city background, custom SVG art, animated cards and links
+- Full-width top command bar (cash, blue stars, pause) and a compact staggered production layout
 - Offline JSON save (format v5)
 
 ## Controls
@@ -64,7 +65,7 @@ The exported executable is written to `build/windows/IronChain.exe`.
 The Android preset is configured for an **arm64-v8a debug APK**, target SDK 36, min SDK 24:
 
 ```text
-Godot --headless --export-debug "Android APK" "build/android/IronChain-0.8.0-debug.apk"
+Godot --headless --export-debug "Android APK" "build/android/IronChain-0.8.1-debug.apk"
 ```
 
 Requirements:
@@ -84,7 +85,7 @@ To install on a USB-connected phone:
 
 ```bat
 D:\ghaffari\Android\android-env.bat
-adb install -r D:\ghaffari\jasb\build\android\IronChain-0.8.0-debug.apk
+adb install -r D:\ghaffari\jasb\build\android\IronChain-0.8.1-debug.apk
 ```
 
 Build outputs are intentionally ignored by Git (`build/`). The source is the project.
@@ -112,6 +113,6 @@ docs/               GDD, changelog, release checklist, screenshots
 
 ## Version
 
-**0.8.0** — Global Lab, blue stars and Ascension.
+**0.8.1** — full-width top bar, bottom dashboard removed, staggered raw-output board layout.
 
 See `docs/GDD.md` and `docs/CHANGELOG.md` for details.

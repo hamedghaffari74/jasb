@@ -71,7 +71,6 @@ func _process(delta: float) -> void:
 			_save_now()
 	_update_drag_line()
 	_hud.set_money(SaveManager.money)
-	_hud.update_resources(_stations)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -120,7 +119,6 @@ func _build() -> void:
 	_restore_links()
 	_hud.set_money(SaveManager.money)
 	_hud.set_tip(Tutorial.tip(_stations, _links, SaveManager.money))
-	_hud.update_resources(_stations)
 
 
 func _restore_links() -> void:

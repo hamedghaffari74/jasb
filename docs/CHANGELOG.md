@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.1
+- Full-width **top command bar**, flush to the top edge (no floating margin); cash, blue-star balance and pause stay in the header.
+- Removed the bottom **economy dashboard** entirely. Product prices remain on the Market card and each factory card still shows its own input/output counts.
+- New staggered board layout:
+  - Left: raw production pipeline (Mine → Smelter → Mill) with airy spacing and long link runs.
+  - Right: output/market hub (Market, Car Plant, Appliance Plant, Tool Shop) tightly stacked.
+  - The bottom hint is now a single shadowed text line without a panel.
+- Line routing bounds and top/bottom lanes updated for the taller card area.
+- Android debug APK rebuilt as `build/android/IronChain-0.8.1-debug.apk`.
+
 ## 0.8.0
 - New **Global Lab** opened from the blue-star button in the top command bar.
   - Build **100 cars** in a run to unlock **Ascension**.

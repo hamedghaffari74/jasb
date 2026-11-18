@@ -113,7 +113,7 @@ func _build_path() -> PackedVector2Array:
 	for i in lanes.size():
 		var lane: float = lanes[(start + i) % lanes.size()]
 		candidates.append(PackedVector2Array([a, Vector2(lane, a.y), Vector2(lane, b.y), b]))
-	for lane in [100.0, 1016.0]:
+	for lane in [108.0, 1170.0]:
 		candidates.append(PackedVector2Array([a, Vector2(a.x, lane), Vector2(b.x, lane), b]))
 	candidates.append(PackedVector2Array([a, Vector2(a.x, b.y), b]))
 	candidates.append(PackedVector2Array([a, Vector2(b.x, a.y), b]))
@@ -130,7 +130,7 @@ func _is_clear(points: PackedVector2Array, obstacles: Array[Rect2]) -> bool:
 		var steps: int = maxi(int(a.distance_to(b) / 8.0), 1)
 		for step in range(steps + 1):
 			var point: Vector2 = a.lerp(b, float(step) / float(steps))
-			if point.x < 18.0 or point.x > 702.0 or point.y < 96.0 or point.y > 1040.0:
+			if point.x < 18.0 or point.x > 702.0 or point.y < 100.0 or point.y > 1185.0:
 				return false
 			for rect in obstacles:
 				if rect.has_point(point):

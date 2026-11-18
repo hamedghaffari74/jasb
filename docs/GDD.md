@@ -1,6 +1,6 @@
 # Iron Chain: Factory Sandbox (Game Design Document)
 
-**Engine:** Godot 4.7.2, GDScript only · **Targets:** Windows + Android (portrait, 720x1280 design size) · **Players:** single, 100% offline · **Languages:** فارسی / English · **Version:** 0.8.0
+**Engine:** Godot 4.7.2, GDScript only · **Targets:** Windows + Android (portrait, 720x1280 design size) · **Players:** single, 100% offline · **Languages:** فارسی / English · **Version:** 0.8.1
 
 ## Pitch
 Build a steel factory chain by hand. The mine makes ore; sell it, buy the next factory, then drag lines to move goods from one building to another. Each line starts at 1 item/s and speeds up with the source factory's speed option. Each factory has four options: speed ×1.5, price +50%, space +2 and AUTO. The first three can be leveled up to **5**; AUTO is a one-time switch to automatic production. Build 100 cars to unlock the **Global Lab**, then ascend for permanent blue-star upgrades.
@@ -106,18 +106,20 @@ Prices are fixed base prices; the source factory's price levels and the Global L
 - The car counter counts **produced cars** (not sales) and is saved with the run.
 
 ## Layout
-- Two columns of wide cards (330x215 design pixels): production on the left, Market and final factories on the right.
-- More spacing between rows and a larger desktop test window (540x960) so the option buttons, level text and artwork are comfortable.
-- The Market sits opposite the Mine, so the first drag is a short horizontal line.
+- **Top command bar:** full-width, flush to the top edge (0-96 design px), with the chain name/cash on the left, blue-star balance and pause on the right. No floating margin.
+- **No bottom economy dashboard.** The market card shows product prices; each factory card shows its own input/output counts; the economy hint line sits at the very bottom without a panel.
+- **Raw production column (left):** Mine → Smelter → Mill, spaced like a vertical pipeline with long link runs.
+- **Output/market column (right):** Market at the top, then Car Plant, Appliance Plant and Tool Shop, tightly stacked and staggered against the left column.
+- Cards are 330x215; the left column is deliberately airier and the right column denser so the finished-goods side reads as a compact hub. The Market stays opposite the Mine for the short first drag.
 
 ## Visual design
 - **Background:** procedural night-time industrial city with layered skyline, factory windows, chimneys, animated smoke and a warm moon glow.
-- **Top command bar:** chain name, Persian/English subtitle, gold coin + CASH balance, a blue-star balance button that opens the Global Lab, and a dedicated pause button.
+- **Top command bar:** full-width and flush to the top edge; chain name, Persian/English subtitle, gold coin + CASH balance, a blue-star balance button that opens the Global Lab, and a pause button.
 - **Factory cards:** 330x215, category accent (mine orange, processing orange, steel mill steel-blue, production cyan), custom art, soft inner light, shadow, PWR badge, resource icons for input/output, progress bar and the option controls.
+- **Board flow:** raw production (Mine/Smelter/Mill) on an airy left pipeline; Market, Car Plant, Appliance Plant and Tool Shop on a dense right output hub. The bottom economy dashboard has been removed; a single shadowed hint line sits at the bottom edge.
 - **Global Lab:** full-screen deep-blue panel with a starfield glow, blue-star balance and ascension count, a gold Ascension card with a car progress bar, three accent-coded upgrade cards (gold sale price, cyan speed, green storage) with five level pips and buy buttons, and a help panel. The top-bar star button glows when ascension is available.
 - **Art:** one unique SVG illustration per building in `assets/sprites/factories/` and one icon per resource in `assets/sprites/resources/`; transparent, drawn with gradients and industrial detail.
 - **Market:** warm orange glowing frame, its own art, OPEN status, six sellable product icons with base prices and a drop hint.
-- **Economy dashboard:** panel at the bottom with a chip per product (icon, name, base price, current stock), plus control hints.
 - **Lines:** product-coloured glow, animated flow pulse, moving item dots, endpoint markers and arrows; routed in lanes behind the cards. Base 1 item/s, upgraded by the source speed option and the Global Lab speed multiplier; colour moves toward gold and the line widens as the rate grows.
 - **Motion:** card hover lift + border glow, working-card pulse, progress glow, cash pop, button feedback, background smoke and window flicker.
 - All displayed numbers are read from the real station buffers, links and Economy data; UI-only additions (PWR badge) never change gameplay.
@@ -174,22 +176,23 @@ No per-item nodes in the simulation: buffers are integer counters, items in tran
 - 0.6.0: full industrial UI redesign (background, cards/art, lines, market, dashboard, animations). **Done**
 - 0.7.0: factory buy prices ×5, option costs ×3, line throughput limited to 1 item/s and upgraded by the source speed option with gold-shifting colours. **Done**
 - 0.8.0: blue-star Global Lab, 100-car ascension, permanent sale/speed/storage upgrades, top-bar star balance. **Done**
+- 0.8.1: full-width top command bar, bottom economy dashboard removed, staggered raw/output card layout and slim bottom hint. **Done**
 
 ## Implementation notes
 - `resources/theme/main_theme.tres` sets Vazirmatn as the default theme font; the font is `assets/fonts/Vazirmatn.ttf` (OFL).
 - Save data: `user://save.json`, format version 5 (option levels stored as ints; old boolean values load as level 1; old v4 saves are reset).
 - Windows release build: `build/windows/IronChain.exe`.
-- Android debug build: `build/android/IronChain-0.8.0-debug.apk` (arm64-v8a, package `com.jasb.ironchain`, target SDK 36, min SDK 24), signed with the local debug keystore.
+- Android debug build: `build/android/IronChain-0.8.1-debug.apk` (arm64-v8a, package `com.jasb.ironchain`, target SDK 36, min SDK 24), signed with the local debug keystore.
 - Android toolchain is local: JDK 17 in `D:\ghaffari\Android\jdk17`, SDK in `D:\ghaffari\Android\Sdk` (build-tools 36.0.0, platform android-36, platform-tools 37.0.1), debug keystore in `D:\ghaffari\Android\keystore\debug.keystore`.
 - Android export preset is ready in `export_presets.cfg`; the package name `com.jasb.ironchain` is a placeholder and must be changed before publishing. Release builds must be signed with your own release keystore.
 - Links are routed with orthogonal side lanes chosen to avoid building cards; the lane rotates per link so parallel lines stay visible.
 - `Link.throughput()` returns `(1.0 + 0.5 × from.speed_level) × SaveManager.global_speed()` and is enforced by a per-link pull accumulator; `Link._refresh_strength()` updates width and the product-to-gold colour blend.
 - `scripts/game/boot.gd` fits the desktop window to the monitor's usable area at startup (preserving 9:16) so the title bar cannot open above the screen; Android is untouched.
-- `scripts/ui/industrial_background.gd` draws the animated city; `scripts/common/art.gd` maps SVG art; `Hud` draws the command bar, star button and economy dashboard.
+- `scripts/ui/industrial_background.gd` draws the animated city; `scripts/common/art.gd` maps SVG art; `Hud` draws the full-width command bar and star button.
 - Global meta data and purchase rules live in `scripts/economy/global_upgrades.gd` and `autoload/save_manager.gd`; the page is `scripts/ui/global_lab.gd` with `LevelPips` and `LabBackdrop` helpers.
-- Version: 0.8.0 (`project.godot`, menu footer, CHANGELOG).
+- Version: 0.8.1 (`project.godot`, menu footer, CHANGELOG).
 
-## Screenshots (0.8.0)
+## Screenshots (0.8.1)
 - `docs/screenshots/menu.png`
 - `docs/screenshots/settings.png`
 - `docs/screenshots/start.png`

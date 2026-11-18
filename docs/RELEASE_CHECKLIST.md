@@ -5,14 +5,15 @@
 - [ ] Update docs/CHANGELOG.md
 - [ ] Output panel clean on F5 (no errors/warnings), all scenes run with F6
 - [ ] Reset progress in Settings, start a fresh sandbox
-- [ ] Confirm the night city background, top command bar and economy dashboard render on Windows and Android
+- [ ] Confirm the night city background, full-width top command bar and staggered card layout render on Windows and Android
+- [ ] Confirm the top command bar is flush to the top edge and the bottom economy dashboard is gone
 - [ ] Confirm the desktop game window fits the monitor with a visible title bar (test 1080p and a 768p/scaled display)
 - [ ] Confirm every factory has its own art and that locked cards are visually dimmed
 - [ ] Confirm Persian is the default language; switch to English and back from Settings
 - [ ] Confirm Persian text is shaped correctly and the Vazirmatn font renders every label
 - [ ] Confirm the new slider fills, language selector, pause panel and menu panel look correct
 - [ ] Confirm card hover glow, working pulse, cash pop, line flow and background smoke animate
-- [ ] Confirm the dashboard stock/price values change from real production
+- [ ] Confirm the market card prices and each factory card's input/output counts are correct
 - [ ] Confirm locked prices are $150 / $300 / $500 / $1250 / $900 on the cards
 - [ ] Confirm option base costs are $60 / $45 / $90 / $150 / $375 / $270 and AUTO is 2× the base
 - [ ] Confirm a new Mine -> Market line moves exactly 1 item/s (with no global speed)
@@ -47,7 +48,7 @@
 - [ ] Phone stays cool after 10 minutes
 
 ## Android
-- [ ] Debug build installs and runs (`adb install -r build/android/IronChain-0.8.0-debug.apk`)
+- [ ] Debug build installs and runs (`adb install -r build/android/IronChain-0.8.1-debug.apk`)
 - [ ] Portrait only, no rotation
 - [ ] Tall (20:9) and short (16:9) screens both show all cards and option levels
 - [ ] Release build signed with your own keystore (never commit it)
@@ -58,5 +59,5 @@
 - [ ] Window is portrait-sized and resizable without UI breaking
 
 ## Final
-- [ ] Tag the commit `v0.8.0`
+- [ ] Tag the commit `v0.8.1`
 - [ ] Archive the keystore and passwords somewhere safe

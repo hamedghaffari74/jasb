@@ -8,7 +8,6 @@ signal global_pressed
 const FONT: Font = preload("res://assets/fonts/Vazirmatn.ttf")
 
 var _money: int = 0
-var _stocks: Dictionary = {}
 var _tip_label: Label
 var _cash_pop: float = 0.0
 var _tip_hold: float = 0.0
@@ -19,24 +18,20 @@ var _prestige_ready: bool = false
 var _time: float = 0.0
 
 var _panel_style: StyleBoxFlat = StyleBoxFlat.new()
-var _chip_style: StyleBoxFlat = StyleBoxFlat.new()
 
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	size = Vector2(720, 1280)
 	set_process(true)
-	_panel_style.bg_color = Color(Palette.PANEL.r, Palette.PANEL.g, Palette.PANEL.b, 0.92)
-	_panel_style.set_corner_radius_all(18)
-	_panel_style.set_border_width_all(2)
-	_panel_style.border_color = Palette.PANEL_HIGH
+	_panel_style.bg_color = Color(Palette.PANEL.r, Palette.PANEL.g, Palette.PANEL.b, 0.97)
+	_panel_style.set_corner_radius_all(0)
+	_panel_style.corner_radius_bottom_left = 18
+	_panel_style.corner_radius_bottom_right = 18
+	_panel_style.set_border_width_all(0)
 	_panel_style.shadow_color = Palette.SHADOW
-	_panel_style.shadow_size = 10
+	_panel_style.shadow_size = 14
 	_panel_style.shadow_offset = Vector2(0, 5)
-	_chip_style.bg_color = Color(Palette.PANEL_LIGHT.r, Palette.PANEL_LIGHT.g, Palette.PANEL_LIGHT.b, 0.72)
-	_chip_style.set_corner_radius_all(10)
-	_chip_style.set_border_width_all(1)
-	_chip_style.border_color = Color(Palette.PANEL_HIGH.r, Palette.PANEL_HIGH.g, Palette.PANEL_HIGH.b, 0.7)
 	_star_glow.bg_color = Color(0, 0, 0, 0)
 	_star_glow.set_corner_radius_all(20)
 	_star_glow.set_border_width_all(2)
@@ -89,21 +84,6 @@ func flash_tip(text: String, seconds: float = 4.0) -> void:
 
 func pop_cash() -> void:
 	_cash_pop = 1.0
-
-
-func update_resources(stations: Dictionary) -> void:
-	var next: Dictionary = {}
-	for product in Economy.ORDER:
-		var total: int = 0
-		for station: Station in stations.values():
-			if station.locked or station.data == null or station.data.is_market:
-				continue
-			if station.data.output_item == product:
-				total += station.output_count
-		next[product] = total
-	if next != _stocks:
-		_stocks = next
-		queue_redraw()
 
 
 func _build_pause_button() -> void:
@@ -187,29 +167,24 @@ func _round_button(fill: Color, border: Color) -> StyleBoxFlat:
 
 func _build_tip() -> void:
 	_tip_label = Label.new()
-	_tip_label.position = Vector2(24, 1016)
-	_tip_label.size = Vector2(672, 36)
+	_tip_label.position = Vector2(24, 1190)
+	_tip_label.size = Vector2(672, 40)
 	_tip_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_tip_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_tip_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_tip_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_tip_label.text_direction = Control.TEXT_DIRECTION_RTL if I18n.is_fa() else Control.TEXT_DIRECTION_AUTO
-	_tip_label.add_theme_font_size_override("font_size", 13)
+	_tip_label.add_theme_font_size_override("font_size", 12)
 	_tip_label.add_theme_color_override("font_color", Palette.WARN)
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(Palette.BG_DEEP.r, Palette.BG_DEEP.g, Palette.BG_DEEP.b, 0.9)
-	style.set_corner_radius_all(12)
-	style.set_border_width_all(1)
-	style.border_color = Color(Palette.WARN.r, Palette.WARN.g, Palette.WARN.b, 0.5)
-	style.set_content_margin_all(6.0)
-	_tip_label.add_theme_stylebox_override("normal", style)
+	_tip_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
+	_tip_label.add_theme_constant_override("shadow_offset_x", 0)
+	_tip_label.add_theme_constant_override("shadow_offset_y", 2)
 	add_child(_tip_label)
 
 
 func _draw() -> void:
 	_draw_top_bar()
 	_draw_star_glow()
-	_draw_dashboard()
 
 
 func _draw_star_glow() -> void:
@@ -222,42 +197,20 @@ func _draw_star_glow() -> void:
 
 
 func _draw_top_bar() -> void:
-	draw_style_box(_panel_style, Rect2(16, 10, 688, 84))
-	draw_line(Vector2(34, 12), Vector2(686, 12), Color(Palette.WARN.r, Palette.WARN.g, Palette.WARN.b, 0.35), 2.0)
-	draw_string(FONT, Vector2(38, 44), "IRON CHAIN", HORIZONTAL_ALIGNMENT_LEFT, 300, 24, Palette.WARN)
-	draw_string(FONT, Vector2(38, 67), I18n.t("subtitle"), HORIZONTAL_ALIGNMENT_LEFT, 300, 11, Palette.MUTED)
-	var coin_center := Vector2(416, 53)
+	draw_style_box(_panel_style, Rect2(0, 0, 720, 96))
+	draw_line(Vector2(0, 95), Vector2(720, 95), Color(Palette.WARN.r, Palette.WARN.g, Palette.WARN.b, 0.35), 2.0)
+	draw_string(FONT, Vector2(24, 38), "IRON CHAIN", HORIZONTAL_ALIGNMENT_LEFT, 300, 25, Palette.WARN)
+	draw_string(FONT, Vector2(24, 62), I18n.t("subtitle"), HORIZONTAL_ALIGNMENT_LEFT, 300, 11, Palette.MUTED)
+	var coin_center := Vector2(406, 54)
 	draw_circle(coin_center, 13.0, Palette.GOLD)
 	draw_circle(coin_center, 10.0, Color("#e0a000"))
-	draw_string(FONT, Vector2(410, 58), "$", HORIZONTAL_ALIGNMENT_CENTER, 12, 13, Color("#493000"))
+	draw_string(FONT, Vector2(400, 59), "$", HORIZONTAL_ALIGNMENT_CENTER, 12, 13, Color("#493000"))
 	var cash_size: int = 28 + int(_cash_pop * 6.0)
 	var cash_color: Color = Palette.GOOD.lightened(0.12 * _cash_pop)
 	var cash_text: String = "$%d" % _money
-	var cash_width: float = 132.0
+	var cash_width: float = 136.0
 	var measured: float = FONT.get_string_size(cash_text, HORIZONTAL_ALIGNMENT_LEFT, -1, cash_size).x
 	if measured > cash_width:
 		cash_size = maxi(15, int(float(cash_size) * cash_width / measured))
-	draw_string(FONT, Vector2(436, 64), cash_text, HORIZONTAL_ALIGNMENT_LEFT, int(cash_width), cash_size, cash_color)
-	draw_string(FONT, Vector2(436, 36), I18n.t("cash"), HORIZONTAL_ALIGNMENT_LEFT, int(cash_width), 9, Palette.MUTED)
-
-
-func _draw_dashboard() -> void:
-	draw_style_box(_panel_style, Rect2(16, 1058, 688, 210))
-	draw_string(FONT, Vector2(38, 1082), I18n.t("economy"), HORIZONTAL_ALIGNMENT_LEFT, 320, 12, Palette.WARN)
-	draw_line(Vector2(38, 1088), Vector2(682, 1088), Color(Palette.WARN.r, Palette.WARN.g, Palette.WARN.b, 0.28), 1.0)
-	var columns: Array[float] = [32.0, 258.0, 484.0]
-	var rows: Array[float] = [1096.0, 1148.0]
-	for i in Economy.ORDER.size():
-		var product: String = Economy.ORDER[i]
-		var x: float = columns[i % 3]
-		var y: float = rows[i / 3]
-		draw_style_box(_chip_style, Rect2(x, y, 212, 44))
-		var icon: Texture2D = Art.product(product)
-		if icon != null:
-			draw_texture_rect(icon, Rect2(x + 10, y + 10, 24, 24), false)
-		var name_align: HorizontalAlignment = HORIZONTAL_ALIGNMENT_RIGHT if I18n.is_fa() else HORIZONTAL_ALIGNMENT_LEFT
-		draw_string(FONT, Vector2(x + 40, y + 19), I18n.product_name(product), name_align, 150, 13, Palette.TEXT)
-		draw_string(FONT, Vector2(x + 40, y + 36), "$%d" % Economy.sell_price(product), HORIZONTAL_ALIGNMENT_LEFT, 60, 10, Palette.MUTED)
-		draw_string(FONT, Vector2(x + 146, y + 36), "x%d" % int(_stocks.get(product, 0)), HORIZONTAL_ALIGNMENT_RIGHT, 52, 10, Palette.GOOD)
-	draw_string(FONT, Vector2(38, 1208), I18n.t("hint"), HORIZONTAL_ALIGNMENT_LEFT, 640, 11, Palette.MUTED)
-	draw_string(FONT, Vector2(38, 1232), I18n.t("options_hint"), HORIZONTAL_ALIGNMENT_LEFT, 640, 11, Palette.MUTED)
+	draw_string(FONT, Vector2(426, 65), cash_text, HORIZONTAL_ALIGNMENT_LEFT, int(cash_width), cash_size, cash_color)
+	draw_string(FONT, Vector2(426, 38), I18n.t("cash"), HORIZONTAL_ALIGNMENT_LEFT, int(cash_width), 9, Palette.MUTED)
